@@ -1,42 +1,34 @@
-import styled from "styled-components";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import Dashboard from "./pages/Dashboard";
+import Bookings from "./pages/Bookings";
+import Cabins from "./pages/Cabins";
+import NewUsers from "./pages/Users";
+import Settings from "./pages/Settings";
+import Account from "./pages/Account";
+import Login from "./pages/Login";
+import PageNotFound from "./pages/PageNotFound";
 import GlobalStyles from "./styles/GlobalStyles";
-
-const H1 = styled.h1`
-  font-size: 30px;
-  font-weight: bold;
-  color: blue;
-  text-transform: capitalize;
-  background-color: #f0f0f0;
-`;
-const Button = styled.button`
-  display: inline-block;
-  font-size: 1.4rem;
-  padding: 1.2rem 1.6rem;
-  font-weight: 500;
-  border: none;
-  cursor: pointer;
-  border-radius: 0.4rem;
-  background-color: #f0f0f0;
-  color: #333;
-  box-shadow: 0 0 10px black;
-`;
-const Input = styled.input`
-  padding: 1.2rem 1.6rem;
-  border: 1px solid #ccc;
-  background-color: #f0f0f0;
-  color: #333;
-  box-shadow: 0 0 10px black;
-`;
+import AppLayout from "./ui/AppLayout";
 
 function App() {
   return (
     <>
       <GlobalStyles />
-      <div>
-        <H1>the wild oasis</H1>
-        <Button>click me</Button>
-        <Input type="text" placeholder="type here" />
-      </div>
+      <BrowserRouter>
+        <Routes>
+          <Route element={<AppLayout />}>
+            <Route index element={<Navigate replace to={"dashboard"} />} />
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="bookings" element={<Bookings />} />
+            <Route path="cabins" element={<Cabins />} />
+            <Route path="users" element={<NewUsers />} />
+            <Route path="settings" element={<Settings />} />
+            <Route path="acount" element={<Account />} />
+          </Route>
+          <Route path="login" element={<Login />} />
+          <Route path="*" element={<PageNotFound />} />
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }
